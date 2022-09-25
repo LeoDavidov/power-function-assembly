@@ -4,15 +4,15 @@ welcome: .asciz "Names: Leonid, Yuri \nNetIDs: leoniddavidov, ipoteluev \npower 
 msg_base: .asciz "Enter the base:\n"
 msg_exp: .asciz "Enter the exponent:\n"
 
-input: .asciz "%lds" // specify input format
+input: .asciz "%lds" # specify input format
 
 output_string: .asciz "%ld\n"
 
 .global main
 
 main:
-    # prologue ///////////////////// creating the stack frame
-    pushq %rbp                   #// set bp
+    # prologue /////////////////////  creating the stack frame
+    pushq %rbp                   #//  set bp
     movq %rsp, %rbp              #//  allign sp and bp
     # //////////////////////////////
     
@@ -44,9 +44,10 @@ main:
     movq $input, %rdi   # load first argument of scanf
     leaq -8(%rbp) , %rsi # Load address of stack var in rsi
     call scanf
+
     # save the scanned value
     movq -16(%rbp ), %rdi # copy the base to rdi (first param)
-    movq -8(%rbp), %rsi  # copy the exp to rdi (second param)
+    movq -8(%rbp), %rsi # copy the exp to rdi (second param)
     
     # call the subroutine
     call pow
@@ -84,8 +85,7 @@ pow:
 
 
         # the multiplying loop
-    loopTop:
-                
+    loopTop:     
         imul %rdi  #result *= base
         dec %rsi         # decrease exp
         cmp $0, %rsi     # comparing exp to 0
